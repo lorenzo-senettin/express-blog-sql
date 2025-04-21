@@ -11,6 +11,7 @@ function index(req, res) {
   });
 }
 
+// DELETE /posts/:id
 function destroy(req, res) {
   const id = req.params.id;
   db.query("DELETE FROM posts WHERE id = ?", [id], (err, result) => {
@@ -24,7 +25,24 @@ function destroy(req, res) {
     res.status(204).end();
   });
 }
+
+// SHOW /posts/:id
+function show(req, res) {
+  const id = req.params.id;
+  db.query("SELECT * FROM posts WHERE id = ?", [id], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Errore server" });
+    }
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Post non trovato" });
+    }
+    res.json(results[0]);
+  });
+}
+
 module.exports = {
   index,
+  show,
   destroy,
 };
