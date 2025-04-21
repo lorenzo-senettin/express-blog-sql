@@ -11,4 +11,20 @@ function index(req, res) {
   });
 }
 
-module.exports = { index };
+function destroy(req, res) {
+  const id = req.params.id;
+  db.query("DELETE FROM posts WHERE id = ?", [id], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Errore server" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Post non trovato" });
+    }
+    res.status(204).end();
+  });
+}
+module.exports = {
+  index,
+  destroy,
+};
