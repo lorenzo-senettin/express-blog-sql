@@ -1,0 +1,13 @@
+{
+  "name": "blog-api",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node --watch --env-file=.env server.js"
+  },
+  "dependencies": {
+    "express": "^4.x",
+    "mysql2": "^3.x",
+    "dotenv": "^16.x"
+  }
+}
